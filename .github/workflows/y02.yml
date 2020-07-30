@@ -43,6 +43,13 @@ jobs:
           df -h
       - name: Update feeds
         run: |
+          cd package
+          mkdir openwrt-packages
+          cd openwrt-packages
+          git clone https://github.com/tzxiaozhen88/luci-app-koolproxyR.git
+          git clone https://github.com/rosywrt/luci-theme-rosy.git
+          git clone https://github.com/tty228/luci-app-serverchan.git
+        run: |
           sed -i 's/\"#src-git\"/\"src-git\"/g' ./feeds.conf.default
           ./scripts/feeds update -a
           ./scripts/feeds install -a
@@ -77,11 +84,23 @@ jobs:
           CONFIG_PACKAGE_luci-app-usb-printer=y
           CONFIG_PACKAGE_luci-app-udpxy=y
           CONFIG_PACKAGE_luci-proto-bonding=y
+          CONFIG_PACKAGE_luci-app-serverchan=y
+          CONFIG_PACKAGE_luci-app-qbittorrent=y
+          CONFIG_PACKAGE_luci-app-aliddns=y
+          CONFIG_PACKAGE_luci-app-mwan=y
+          CONFIG_PACKAGE_luci-app-mwan3=y
+          CONFIG_PACKAGE_luci-app-diskman=y
+          CONFIG_PACKAGE_luci-app-upnp=y
+          CONFIG_PACKAGE_luci-app-cifsd=y
+          CONFIG_PACKAGE_luci-app-samba=y
+          CONFIG_PACKAGE_luci-app-samba4=y
+          CONFIG_PACKAGE_luci-app-softethervpn=y
           EOF
           # LuCI主题:
           cat >> .config <<EOF
           CONFIG_PACKAGE_luci-theme-argon=y
           CONFIG_PACKAGE_luci-theme-netgear=y
+          CONFIG_PACKAGE_luci-theme-rosy=y
           EOF
           # 常用软件包:
           cat >> .config <<EOF
