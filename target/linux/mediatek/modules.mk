@@ -27,14 +27,28 @@ endef
 
 $(eval $(call KernelPackage,btmtkuart))
 
-define KernelPackage/sdhci-mtk
-  SUBMENU:=Other modules
-  TITLE:=Mediatek SDHCI driver
-  DEPENDS:=@TARGET_mediatek_mt7622 +kmod-sdhci
-  KCONFIG:=CONFIG_MMC_MTK 
+define KernelPackage/iio-mt6577-auxadc
+  TITLE:=Mediatek AUXADC driver
+  DEPENDS:=@(TARGET_mediatek_mt7622||TARGET_mediatek_mt7623||TARGET_mediatek_filogic)
+  KCONFIG:=CONFIG_MEDIATEK_MT6577_AUXADC
   FILES:= \
-	$(LINUX_DIR)/drivers/mmc/host/mtk-sd.ko
-  AUTOLOAD:=$(call AutoProbe,mtk-sd,1)
+	$(LINUX_DIR)/drivers/iio/adc/mt6577_auxadc.ko
+  AUTOLOAD:=$(call AutoProbe,mt6577_auxadc)
+  $(call AddDepends/iio)
+endef
+$(eval $(call KernelPackage,iio-mt6577-auxadc))
+
+define KernelPackage/leds-spi-single-wire
+  SUBMENU:=LED modules
+  TITLE:=SPI single wire LED support
+  DEPENDS:=@(TARGET_mediatek_filogic)
+  KCONFIG:=CONFIG_LEDS_SPI_SINGLE_WIRE
+  FILES:= $(LINUX_DIR)/drivers/leds/leds-spi-single-wire.ko
+  AUTOLOAD:=$(call AutoLoad,60,leds-spi-single-wire,1)
 endef
 
-$(eval $(call KernelPackage,sdhci-mtk))
+define KernelPackage/leds-spi-single-wire/description
+  LED support for SPI LED controller with a single wire (MOSI)
+endef
+
+$(eval $(call KernelPackage,leds-spi-single-wire))
