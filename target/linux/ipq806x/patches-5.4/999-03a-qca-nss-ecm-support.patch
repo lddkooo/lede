@@ -106,7 +106,7 @@
  		     __be16 vlan_proto, u16 vlan_id)
 --- a/include/linux/netdevice.h
 +++ b/include/linux/netdevice.h
-@@ -1654,6 +1654,20 @@ enum netdev_ml_priv_type {
+@@ -1656,6 +1656,20 @@ enum netdev_ml_priv_type {
  	ML_PRIV_CAN,
  };
  
@@ -127,7 +127,7 @@
  /**
   *	struct net_device - The DEVICE structure.
   *
-@@ -1964,6 +1978,7 @@ struct net_device {
+@@ -1966,6 +1980,7 @@ struct net_device {
  
  	unsigned int		flags;
  	unsigned int		priv_flags;
@@ -135,7 +135,7 @@
  
  	unsigned short		gflags;
  	unsigned short		padded;
-@@ -2647,6 +2662,10 @@ enum netdev_cmd {
+@@ -2649,6 +2664,10 @@ enum netdev_cmd {
  	NETDEV_CVLAN_FILTER_DROP_INFO,
  	NETDEV_SVLAN_FILTER_PUSH_INFO,
  	NETDEV_SVLAN_FILTER_DROP_INFO,
@@ -1164,7 +1164,7 @@
  #endif
 --- a/net/core/neighbour.c
 +++ b/net/core/neighbour.c
-@@ -1223,7 +1223,21 @@ static void neigh_update_hhs(struct neig
+@@ -1235,7 +1235,21 @@ static void neigh_update_hhs(struct neig
  	}
  }
  
@@ -1186,7 +1186,7 @@
  
  /* Generic update routine.
     -- lladdr is new lladdr or NULL, if it is not supplied.
-@@ -1254,6 +1268,7 @@ static int __neigh_update(struct neighbo
+@@ -1266,6 +1280,7 @@ static int __neigh_update(struct neighbo
  	int notify = 0;
  	struct net_device *dev;
  	int update_isrouter = 0;
@@ -1194,7 +1194,7 @@
  
  	trace_neigh_update(neigh, lladdr, new, flags, nlmsg_pid);
  
-@@ -1263,6 +1278,8 @@ static int __neigh_update(struct neighbo
+@@ -1275,6 +1290,8 @@ static int __neigh_update(struct neighbo
  	old    = neigh->nud_state;
  	err    = -EPERM;
  
@@ -1203,7 +1203,7 @@
  	if (neigh->dead) {
  		NL_SET_ERR_MSG(extack, "Neighbor entry is now dead");
  		new = old;
-@@ -1305,6 +1322,11 @@ static int __neigh_update(struct neighbo
+@@ -1317,6 +1334,11 @@ static int __neigh_update(struct neighbo
  		   - compare new & old
  		   - if they are different, check override flag
  		 */
@@ -1215,7 +1215,7 @@
  		if ((old & NUD_VALID) &&
  		    !memcmp(lladdr, neigh->ha, dev->addr_len))
  			lladdr = neigh->ha;
-@@ -1427,8 +1449,11 @@ out:
+@@ -1439,8 +1461,11 @@ out:
  	if (((new ^ old) & NUD_PERMANENT) || ext_learn_change)
  		neigh_update_gc_list(neigh);
  
@@ -1362,7 +1362,7 @@
  out:
  	fib6_info_release(rt);
  	return err;
-@@ -6143,6 +6153,20 @@ static int ip6_route_dev_notify(struct n
+@@ -6144,6 +6154,20 @@ static int ip6_route_dev_notify(struct n
  	return NOTIFY_OK;
  }
  

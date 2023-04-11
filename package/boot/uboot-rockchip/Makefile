@@ -104,17 +104,6 @@ define U-Boot/nanopi-r4se-rk3399
   USE_RKBIN:=1
 endef
 
-define U-Boot/nanopi-r5s-rk3568
-  BUILD_SUBTARGET:=armv8
-  NAME:=NanoPi R5S
-  BUILD_DEVICES:= \
-    friendlyarm_nanopi-r5s
-  DEPENDS:=+PACKAGE_u-boot-nanopi-r5s-rk3568:arm-trusted-firmware-rk3568
-  PKG_BUILD_DEPENDS:=arm-trusted-firmware-rockchip-vendor
-  ATF:=rk3568_bl31_v1.28.elf
-  DDR:=rk3568_ddr_1560MHz_v1.13.bin
-endef
-
 define U-Boot/rock-pi-4-rk3399
   BUILD_SUBTARGET:=armv8
   NAME:=Rock Pi 4
@@ -157,14 +146,38 @@ define U-Boot/rocktech-mpc1903-rk3399
   USE_RKBIN:=1
 endef
 
+define U-Boot/sharevdi-h3399pc-rk3399
+  BUILD_SUBTARGET:=armv8
+  NAME:=SHAREVDI H3399PC
+  BUILD_DEVICES:= \
+    sharevdi_h3399pc
+  DEPENDS:=+PACKAGE_u-boot-sharevdi-h3399pc-rk3399:arm-trusted-firmware-rk3399
+  PKG_BUILD_DEPENDS:=arm-trusted-firmware-rockchip-vendor
+  ATF:=rk3399_bl31_v1.35.elf
+  USE_RKBIN:=1
+endef
+
 # RK3568 boards
 
 define U-Boot/mrkaio-m68s-rk3568
   BUILD_SUBTARGET:=armv8
   NAME:=Mrkaio M68S
   BUILD_DEVICES:= \
-    ezpro_mrkaio-m68s
+    ezpro_mrkaio-m68s \
+    ezpro_mrkaio-m68s-plus
   DEPENDS:=+PACKAGE_u-boot-mrkaio-m68s-rk3568:arm-trusted-firmware-rk3568
+  PKG_BUILD_DEPENDS:=arm-trusted-firmware-rockchip-vendor
+  ATF:=rk3568_bl31_v1.28.elf
+  DDR:=rk3568_ddr_1560MHz_v1.13.bin
+endef
+
+define U-Boot/nanopi-r5s-rk3568
+  BUILD_SUBTARGET:=armv8
+  NAME:=NanoPi R5S
+  BUILD_DEVICES:= \
+    friendlyarm_nanopi-r5c \
+    friendlyarm_nanopi-r5s
+  DEPENDS:=+PACKAGE_u-boot-nanopi-r5s-rk3568:arm-trusted-firmware-rk3568
   PKG_BUILD_DEPENDS:=arm-trusted-firmware-rockchip-vendor
   ATF:=rk3568_bl31_v1.28.elf
   DDR:=rk3568_ddr_1560MHz_v1.13.bin
@@ -175,7 +188,8 @@ define U-Boot/opc-h68k-rk3568
   NAME:=OPC-H68K Board
   BUILD_DEVICES:= \
     hinlink_opc-h66k \
-    hinlink_opc-h68k
+    hinlink_opc-h68k \
+    hinlink_opc-h69k
   DEPENDS:=+PACKAGE_u-boot-opc-h68k-rk3568:arm-trusted-firmware-rk3568
   PKG_BUILD_DEPENDS:=arm-trusted-firmware-rockchip-vendor
   ATF:=rk3568_bl31_v1.28.elf
@@ -246,6 +260,7 @@ UBOOT_TARGETS := \
   rock-3a-rk3568 \
   r66s-rk3568 \
   station-p2-rk3568 \
+  sharevdi-h3399pc-rk3399 \
   guangmiao-g4c-rk3399 \
   nanopi-r4s-rk3399 \
   nanopi-r4se-rk3399 \
