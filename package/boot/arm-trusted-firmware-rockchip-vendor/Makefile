@@ -8,7 +8,7 @@ PKG_NAME:=arm-trusted-firmware-rockchip-vendor
 PKG_RELEASE:=$(AUTORELEASE)
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL=https://github.com/rockchip-linux/rkbin.git
+PKG_SOURCE_URL:=https://github.com/rockchip-linux/rkbin.git
 PKG_SOURCE_DATE:=2023-07-26
 PKG_SOURCE_VERSION:=b4558da0860ca48bf1a571dd33ccba580b9abe23
 PKG_MIRROR_HASH:=039f0f72d0dd179487b5d4b135d13684b220f3d81fa7308a34431a86701f69c6
@@ -27,26 +27,38 @@ endef
 
 define Package/arm-trusted-firmware-rk3328
     $(Package/arm-trusted-firmware-rockchip-vendor)
-    DEPENDS:=@TARGET_rockchip_armv8
+    DEPENDS:=@TARGET_rockchip
     VARIANT:=rk3328
 endef
 
 define Package/arm-trusted-firmware-rk3399
     $(Package/arm-trusted-firmware-rockchip-vendor)
-    DEPENDS:=@TARGET_rockchip_armv8
+    DEPENDS:=@TARGET_rockchip
     VARIANT:=rk3399
+endef
+
+define Package/arm-trusted-firmware-rk3528
+    $(Package/arm-trusted-firmware-rockchip-vendor)
+    DEPENDS:=@TARGET_rockchip
+    VARIANT:=rk3528
 endef
 
 define Package/arm-trusted-firmware-rk3566
     $(Package/arm-trusted-firmware-rockchip-vendor)
-    DEPENDS:=@TARGET_rockchip_armv8
+    DEPENDS:=@TARGET_rockchip
     VARIANT:=rk3566
 endef
 
 define Package/arm-trusted-firmware-rk3568
     $(Package/arm-trusted-firmware-rockchip-vendor)
-    DEPENDS:=@TARGET_rockchip_armv8
+    DEPENDS:=@TARGET_rockchip
     VARIANT:=rk3568
+endef
+
+define Package/arm-trusted-firmware-rk3588
+    $(Package/arm-trusted-firmware-rockchip-vendor)
+    DEPENDS:=@TARGET_rockchip
+    VARIANT:=rk3588
 endef
 
 define Build/Configure
@@ -69,13 +81,21 @@ endef
 define Package/arm-trusted-firmware-rk3399/install
 endef
 
+define Package/arm-trusted-firmware-rk3528/install
+endef
+
 define Package/arm-trusted-firmware-rk3566/install
 endef
 
 define Package/arm-trusted-firmware-rk3568/install
 endef
 
+define Package/arm-trusted-firmware-rk3588/install
+endef
+
 $(eval $(call BuildPackage,arm-trusted-firmware-rk3328))
 $(eval $(call BuildPackage,arm-trusted-firmware-rk3399))
+$(eval $(call BuildPackage,arm-trusted-firmware-rk3528))
 $(eval $(call BuildPackage,arm-trusted-firmware-rk3566))
 $(eval $(call BuildPackage,arm-trusted-firmware-rk3568))
+$(eval $(call BuildPackage,arm-trusted-firmware-rk3588))

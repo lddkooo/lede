@@ -10,9 +10,19 @@ platform_check_image() {
 
 platform_do_upgrade() {
 	case "$(board_name)" in
+	cmiot,ax18|\
 	glinet,gl-ax1800|\
-	glinet,gl-axt1800)
+	glinet,gl-axt1800|\
+	qihoo,360v6|\
+	xiaomi,rm1800)
 		nand_do_upgrade "$1"
+		;;
+	jdcloud,re-cs-02|\
+	jdcloud,re-ss-01|\
+	redmi,ax5-jdcloud)
+		kernelname="0:HLOS"
+		rootfsname="rootfs"
+		mmc_do_upgrade "$1"
 		;;
 	linksys,mr7350)
 		boot_part="$(fw_printenv -n boot_part)"
